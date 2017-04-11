@@ -8,18 +8,18 @@ library(dplyr)
 
 #Imported using import option. But here's the code it executed:
 refine_original <- read_csv("~/Foundations_Exercises/refine_original.csv")
-#convert to a table??
+
 
 
 #Clean up the 'company' column so all of the misspellings of the brand names
 #are standardized, same capitalization, etc.
 
-# select company column, then use tolower() to get to lower case
+# select company column, then 
+#use tolower() to get to lower case
+#then lapply or vapply? and sub or gsub? if starts with f or p, phillips, if starts with v, etc.
 
-
-#select column then lapply or vapply? and sub or gsub? if starts with f or p, phillips, if starts with v, etc.
-
-#Rename 'product code / number' column to 'product'
+#Rename 'product code / number' column to 'product' 
+#Using base r code instead of dplyr b/c dplyr won't read name with space & dash
 names(refine_original)[names(refine_original)=="Product code / number"] <- "product"
 
 #Split the code and number at the dash; create new columns 'product_code' and 'product_number'
@@ -33,7 +33,8 @@ separate(refine_original, product code,c("product_code", "product_number"), sep 
 
 #Create a new column full_address that concatenates the three address fields
 #(address, city, country), separated by commas
-#Use gather()
+refine_original$full_address <- paste(refine_original$address, ", ", refine_original$city, ", ", refine_original$country)
+
 
 #Create four dummy binary variables for product and four for company
 #with the prefix company_ and product_
